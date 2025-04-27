@@ -1,0 +1,111 @@
+imports:
+  - from: common/icons
+    namespace: icons
+
+resources:
+  - name: Frontend
+    subtitle: React NextJS
+    icon: icons.react
+    children:
+      - name: LandingPage
+        subtitle: Public Site
+      - name: Dashboard
+        subtitle: User Interface
+      - name: AdminPanel
+        subtitle: Administration
+
+  - name: API Gateway
+    subtitle: Cloud API Gateway
+    icon: icons.gateway
+
+  - name: Services
+    children:
+      - name: AuthService
+        subtitle: User Authentication
+      - name: ContentService
+        subtitle: Content Management
+      - name: AnalyticsService
+        subtitle: User Analytics
+      - name: NotificationService
+        subtitle: Push Notifications
+
+  - name: Databases
+    children:
+      - name: UserDatabase
+        subtitle: PostgreSQL
+      - name: ContentDB
+        subtitle: MongoDB
+      - name: AnalyticsDB
+        subtitle: ClickHouse
+
+  - name: External
+    children:
+      - name: PaymentProvider
+        subtitle: Stripe API
+      - name: EmailService
+        subtitle: SendGrid
+
+perspectives:
+  - name: System Overview
+    relations:
+      - from: Frontend
+        to: API Gateway
+        label: HTTP/REST
+      - from: API Gateway
+        to: AuthService
+        label: gRPC
+      - from: API Gateway
+        to: ContentService
+        label: gRPC
+      - from: API Gateway
+        to: AnalyticsService
+        label: gRPC
+      - from: API Gateway
+        to: NotificationService
+        label: gRPC
+      - from: AuthService
+        to: UserDatabase
+        label: SQL
+      - from: ContentService
+        to: ContentDB
+        label: NoSQL
+      - from: AnalyticsService
+        to: AnalyticsDB
+        label: ClickHouse TCP
+      - from: AuthService
+        to: EmailService
+        label: SMTP
+      - from: ContentService
+        to: PaymentProvider
+        label: HTTPS
+
+  - name: Authentication Flow
+    relations:
+      - from: Frontend
+        to: API Gateway
+        label: Login Request
+      - from: API Gateway
+        to: AuthService
+        label: Validate Credentials
+      - from: AuthService
+        to: UserDatabase
+        label: Query User
+      - from: AuthService
+        to: EmailService
+        label: Send Login Email
+
+  - name: Content Management
+    relations:
+      - from: Frontend
+        to: API Gateway
+        label: Content APIs
+      - from: API Gateway
+        to: ContentService
+        label: Forward Request
+      - from: ContentService
+        to: ContentDB
+        label: Store/Retrieve
+      - from: ContentService
+        to: PaymentProvider
+        label: Process Payment
+        description: Handle payments for premium content
