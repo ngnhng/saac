@@ -22,40 +22,27 @@ export const Block: React.FC<BlockComponentProps> = memo(({ data }) => {
 
   return (
     <div
-      style={{
-        background: "white",
-        border: "1px solid #ddd",
-        borderRadius: "8px",
-        padding: "15px",
-        width: 200,
-        height: 120,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        textAlign: "center",
-        boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-      }}
+      className="bg-card border border-border rounded-lg p-4 w-[200px] h-[120px] flex flex-col justify-center items-center text-center shadow-sm"
     >
       {/* Handles remain the same */}
-      <Handle type="target" position={Position.Top} style={{ background: "#555" }} />
-      <Handle type="source" position={Position.Bottom} style={{ background: "#555" }} />
-      <Handle type="target" position={Position.Left} style={{ background: "#555" }} />
-      <Handle type="source" position={Position.Right} style={{ background: "#555" }} />
+      <Handle type="target" position={Position.Top} style={{ background: "var(--color-border)" }} />
+      <Handle type="source" position={Position.Bottom} style={{ background: "var(--color-border)" }} />
+      <Handle type="target" position={Position.Left} style={{ background: "var(--color-border)" }} />
+      <Handle type="source" position={Position.Right} style={{ background: "var(--color-border)" }} />
 
       {icon && (
         <img
           src={icon}
           alt={`${title} icon`}
-          style={{ width: 30, height: 30, marginBottom: 8 }}
+          className="w-[30px] h-[30px] mb-2"
           onError={(e) => (e.currentTarget.style.display = "none")} // Hide if icon fails to load
         />
       )}
-      <div style={{ fontWeight: "bold", fontSize: "14px", marginBottom: 4 }}>
+      <div className="font-bold text-sm mb-1 text-foreground">
         {title ?? "Untitled"} {/* Use nullish coalescing for default */}
       </div>
       {subtitle && (
-        <div style={{ fontSize: "12px", color: "#666" }}>{subtitle}</div>
+        <div className="text-xs text-muted-foreground">{subtitle}</div>
       )}
     </div>
   );

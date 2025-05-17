@@ -212,7 +212,7 @@ export const Editor = ({
   };
 
   const handleOnChange = (v: string | undefined) => {
-    if (onContentChange && v) {
+    if (onContentChange && typeof v === "string") {
       onContentChange(v);
     }
   };
